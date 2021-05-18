@@ -35,6 +35,7 @@ int main(int argc, char** argv)
 	sp.push_back(std::make_shared<DoublePendulum>(dp));
 	sp.push_back(std::make_shared<DoublePendulum>(dp2));
 
+	// Main loop
 	while(window.isOpen())
 	{
 		sf::Event event;
