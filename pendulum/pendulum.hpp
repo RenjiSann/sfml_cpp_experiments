@@ -1,50 +1,42 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <cmath>
 #include <iostream>
 
-typedef sf::Vector2<double> vec2;
+#include "utils.hpp"
 
-// Gravitational constant in m.s^(-2)
-constexpr double GRAVITY{9.81};
+using namespace sf;
 
 class SimplePendulum
 {
 	public:
-		SimplePendulum(double x, double y, double len, double angle, bool friction = false):
+		SimplePendulum(float x, float y, float len, float angle, bool friction = false):
 			/*
 			 * x, y -> in pixels
 			 * len -> in meters
 			 * angle -> in radians
 			 */
 			_fixPoint{x,y},
-			_bob{len * sin(angle), len * cos(angle)},
+			_bob{len * sinf(angle), len * cosf(angle)},
 			_angle{angle},
 			_angleVel{0},
 			_len{len},
 			_friction{friction} {};
 
-		void update(double deltaTime);
-		void draw(sf::RenderWindow& rw, sf::Color c);
+		void update(float deltaTime);
+		void draw(RenderWindow& rw, Color c);
 
-		vec2 getOrigin() const { return _fixPoint; };
-		vec2 getPos() const { return _bob + _fixPoint; };
+		Vector2f getOrigin() const { return _fixPoint; };
+		Vector2f getPos() const { return _bob + _fixPoint; };
 
 	private:
-		static constexpr double pixels_per_m{150};
+		static constexpr float pixels_per_m{150};
 
-		vec2 _fixPoint;
-		vec2 _bob; // Location of the bob IN METERS
-		double _angle;
-		double _angleVel;
-		double _len;
+		Vector2f _fixPoint;
+		Vector2f _bob; // Location of the bob IN METERS
+		float _angle;
+		float _angleVel;
+		float _len;
 		bool _friction;
 };
 
-
-// Draw a line from a to b on the given render window
-void drawLine(sf::RenderWindow& win, const sf::Vector2f& a, const sf::Vector2f& b);
-
-// Return the size (in m) needed for a pendulum to have set period;
-double getLength(double period);

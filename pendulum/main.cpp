@@ -12,7 +12,7 @@ int main()
 
 	std::vector<SimplePendulum> sp;
 	for(size_t i = 0; i < 30; ++i)
-		sp.push_back(SimplePendulum{(double) window.getSize().x / 2, 50, getLength(60.0/(50+i)), M_PI / 6});
+		sp.push_back(SimplePendulum{(float) window.getSize().x / 2, 50, pendulumLength(60.0/(50+i)), M_PI / 6});
 
 
 	while(window.isOpen())
