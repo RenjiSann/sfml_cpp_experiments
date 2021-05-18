@@ -1,26 +1,39 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
+
 #include "simple_pendulum.hpp"
 #include "double_pendulum.hpp"
 
 
-int main()
+int main(int argc, char** argv)
 {
 	sf::RenderWindow window(
 			sf::VideoMode(640, 480), 
 			"Hello World !"
 			);
 
+	Vector2f origin{(float) window.getSize().x / 2, (float) window.getSize().y / 10};
 
-	Vector2f origin{(float) window.getSize().x / 2, (float) window.getSize().y / 3};
-	Pendulum a{2, 2 * M_PI / 3, 1, 0, {0,0}, Color::Red};
+	Pendulum a{2, M_PI / 2, 1, 0, {0,0}, Color::Red};
 	Pendulum b{2, 2 * M_PI / 3, 1, 0, {0,0}, Color::Blue};
-	/*
-	   std::vector<SimplePendulum> sp;
-	   for(size_t i = 0; i < 30; ++i)
-	   sp.push_back(SimplePendulum{(float) window.getSize().x / 2, 50, pendulumLength(60.0/(50+i)), M_PI / 6});
-	   */
+	Pendulum c{2, 2 * M_PI / 3 * 1.000001, 1, 0, {0,0}, Color::Blue};
 	DoublePendulum dp{origin, a, b};
+	DoublePendulum dp2{origin, a, c};
+
+	std::vector<std::shared_ptr<IPendulum>> sp;
+	for(size_t i = 0; i < 30; ++i)
+	{
+		sp.push_back(
+				std::make_shared<SimplePendulum>(
+					SimplePendulum{
+					origin, 
+					{pendulumLength(60.0/(50+i)), M_PI / 6, 1, 0, {0,0}, 
+					Color::Red}}));
+	}
+
+	sp.push_back(std::make_shared<DoublePendulum>(dp));
+	sp.push_back(std::make_shared<DoublePendulum>(dp2));
 
 	while(window.isOpen())
 	{
@@ -37,14 +50,13 @@ int main()
 			window.clear();
 
 			double dTime = clock.restart().asSeconds();
-			dp.update(dTime);
-			dp.draw(window);
-			/*
+			//dp.update(dTime);
+			//dp.draw(window);
 			   for(size_t i = 0; i < sp.size(); ++i)
 			   {
-			   sp[i].update(dTime);
-			   sp[i].draw(window, sf::Color::Red);
-			   }*/
+			   sp[i]->update(dTime);
+			   sp[i]->draw(window);
+			   }
 
 			window.display();
 		}

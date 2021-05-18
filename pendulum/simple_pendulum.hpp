@@ -7,7 +7,7 @@
 
 using namespace sf;
 
-class SimplePendulum : IPendulum
+class SimplePendulum : public IPendulum
 {
 	public:
 		SimplePendulum(const Vector2f& origin, const Pendulum& p, bool friction = false):

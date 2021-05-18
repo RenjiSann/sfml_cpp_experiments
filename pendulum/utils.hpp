@@ -21,6 +21,8 @@ struct Pendulum
 class IPendulum
 {
 	public:
+		IPendulum() = default;
+		~IPendulum() = default;
 		virtual void update(float deltaT) = 0;
 		virtual void draw(RenderWindow& rw) const = 0;
 };
