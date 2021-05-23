@@ -5,6 +5,21 @@
 #include "simple_pendulum.hpp"
 #include "double_pendulum.hpp"
 
+void printWin(sf::RenderWindow& rw)
+{
+	std::cout << "size: ("
+		<< rw.getSize().x
+		<< ","
+		<< rw.getSize().y
+		<< ")" << std::endl;
+
+	std::cout << "viewSize: ("
+		<< rw.getView().getSize().x
+		<< ","
+		<< rw.getView().getSize().y
+		<< ")" << std::endl;
+
+}
 
 int main(int argc, char** argv)
 {
@@ -13,7 +28,7 @@ int main(int argc, char** argv)
 			"Hello World !"
 			);
 
-	Vector2f origin{(float) window.getSize().x / 2, (float) window.getSize().y / 10};
+	Vector2f origin{window.getSize()};
 
 	Pendulum a{2, M_PI / 2, 1, 0, {0,0}, Color::Red};
 	Pendulum b{2, 2 * M_PI / 3, 1, 0, {0,0}, Color::Blue};
@@ -38,26 +53,45 @@ int main(int argc, char** argv)
 	// Main loop
 	while(window.isOpen())
 	{
+		printWin(window);
 		sf::Event event;
 		sf::Clock clock;
 		while(true)
 		{
-			if(window.pollEvent(event) && event.type == sf::Event::Closed)
+			// Event handling
+			if(window.pollEvent(event))
 			{
-				window.close();
-				break;
+				if(sf::Event::Closed == event.type)
+				{
+					window.close();
+					break;
+				}
+				if(sf::Event::Resized == event.type)
+				{		
+					Vector2f s{window.getSize()};
+					// Resize the view of the window
+					matchWindowView(window);
+
+					// Move the center of every pendulum to the new center
+					for(size_t i = 0; i < sp.size(); ++i)
+					{
+						Vector2f origin{s};
+						origin.x /= 2.0;
+						origin.y /= 10.0;
+						sp[i]->setOrigin(origin);
+					}
+					printWin(window);
+				}
 			}
 
 			window.clear();
 
 			double dTime = clock.restart().asSeconds();
-			//dp.update(dTime);
-			//dp.draw(window);
-			   for(size_t i = 0; i < sp.size(); ++i)
-			   {
-			   sp[i]->update(dTime);
-			   sp[i]->draw(window);
-			   }
+			for(size_t i = 0; i < sp.size(); ++i)
+			{
+				sp[i]->update(dTime);
+				sp[i]->draw(window);
+			}
 
 			window.display();
 		}

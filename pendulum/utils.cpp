@@ -18,3 +18,11 @@ float pendulumLength(float period)
 {
 	return period * period * 4 * M_PI * M_PI / GRAVITY;
 }
+
+
+void matchWindowView(RenderWindow& rw)
+{
+	Vector2f size{rw.getSize()};
+	Vector2f center{size.x/2, size.y/2};
+	rw.setView(sf::View(center, size));
+}

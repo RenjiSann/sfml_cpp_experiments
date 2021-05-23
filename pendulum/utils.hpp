@@ -23,8 +23,15 @@ class IPendulum
 	public:
 		IPendulum() = default;
 		~IPendulum() = default;
+		IPendulum(const Vector2f& origin): fixPoint{origin} {};
+
 		virtual void update(float deltaT) = 0;
 		virtual void draw(RenderWindow& rw) const = 0;
+
+		Vector2f getOrigin() const { return fixPoint; };
+		void setOrigin(Vector2f& newOr) { fixPoint = newOr; };
+	protected:
+		Vector2f fixPoint;
 };
 
 // Gravitational constant in m.s^(-2)
@@ -43,3 +50,6 @@ void drawLine(RenderWindow& win,
 // matches the given one (in seconds)
 float pendulumLength(float period);
 
+// Resize the view of the RenderWindow so it matches 
+// the size taken on the screen
+void matchWindowView(RenderWindow& rw);

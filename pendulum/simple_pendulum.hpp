@@ -16,7 +16,7 @@ class SimplePendulum : public IPendulum
 			 * len -> in meters
 			 * angle -> in radians
 			 */
-			fixPoint{origin},
+			IPendulum{origin},
 			p{p},
 			friction{friction} {};
 
@@ -28,7 +28,6 @@ class SimplePendulum : public IPendulum
 
 	private:
 		
-		Vector2f fixPoint;
 		Pendulum p;
 		bool friction;
 		/*

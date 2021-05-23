@@ -8,12 +8,9 @@ void DoublePendulum::update(float deltaT)
 	float DENUM = 2 * p1.m + p2.m - p2.m * cosf(2 * (p1.a - p2.a));
 	
 	float n1 = - GRAVITY * (2 * p1.m + p2.m) * sinf(p1.a);
-	//float n1 = GRAVITY * (2 * p1.m + p2.m) * sinf(p1.a);
 	float n2 = - GRAVITY * p2.m * sinf(p1.a - 2 * p2.a);
-	//float n2 = GRAVITY * p2.m * sinf(p1.a - 2 * p2.a);
 	float n3 = - 2 * sinf(p1.a - p2.a) * p2.m;
 	float n4 = p2.v * p2.v * p2.l + p1.v * p1.v * p1.l * cosf(p1.a - p2.a);
-	// acc1 = (n1 + n2 + n3 * n4) / (p1.l * DENUM)
 	float acc1 = (n1 + n2 + n3 * n4) / (p1.l * DENUM);
 
 
