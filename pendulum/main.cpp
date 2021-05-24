@@ -4,6 +4,7 @@
 
 #include "simple_pendulum.hpp"
 #include "double_pendulum.hpp"
+#include "pendulum_drawing.hpp"
 
 
 int main(int argc, char** argv)
@@ -14,15 +15,17 @@ int main(int argc, char** argv)
 			);
 
 	Vector2f origin{window.getSize()};
+	PendulumDrawing pd{};
 
 	Pendulum a{2, M_PI / 2, 1, 0, {0,0}, Color::Red};
 	Pendulum b{2, 2 * M_PI / 3, 1, 0, {0,0}, Color::Blue};
-	Pendulum c{2, 2 * M_PI / 3 * 1.000001, 1, 0, {0,0}, Color::Blue};
-	DoublePendulum dp{origin, a, b};
-	DoublePendulum dp2{origin, a, c};
+	Pendulum c{2, 2 * M_PI / 3 * 1.000001, 1, 0, {0,0}, Color::Green};
+	DoublePendulum dp{origin, pd, a, b};
+	DoublePendulum dp2{origin, pd, a, c};
 
 	std::vector<std::shared_ptr<IPendulum>> sp;
-	for(size_t i = 0; i < 30; ++i)
+	//for(size_t i = 0; i < 30; ++i)
+	for(size_t i = 0; i < 0; ++i)
 	{
 		sp.push_back(
 				std::make_shared<SimplePendulum>(
@@ -40,6 +43,7 @@ int main(int argc, char** argv)
 	{
 		sf::Event event;
 		sf::Clock clock;
+
 		while(true)
 		{
 			// Event handling
@@ -67,15 +71,20 @@ int main(int argc, char** argv)
 				}
 			}
 
+			// Clear the current pendulums
 			window.clear();
 
+			// Find the time elapsed since last frame
 			double dTime = clock.restart().asSeconds();
+
+			// Update every pendulum
 			for(size_t i = 0; i < sp.size(); ++i)
 			{
 				sp[i]->update(dTime);
 				sp[i]->draw(window);
 			}
 
+			// Display the built img on the screen
 			window.display();
 		}
 	}

@@ -34,16 +34,24 @@ void DoublePendulum::update(float deltaT)
 
 	p2.pos.x = p2.l * sinf(p2.a);
 	p2.pos.y = p2.l * cosf(p2.a);
+
+	pdRef.update(deltaT);
 }
 
 void DoublePendulum::draw(RenderWindow& rw) const
 {
+	float fadingTime = 3.0;
+	float radius = 10.0;
 	Vector2f v1 = pixels_per_m * p1.pos + fixPoint;
 	Vector2f v2 = v1 + pixels_per_m * p2.pos;
 	
 	drawLine(rw, fixPoint, v1, Color(100,100,100));
 	drawLine(rw, v1, v2, Color(100,100,100));
 
+	pdRef.addDot(v1, p1.c, radius, fadingTime);
+	pdRef.addDot(v2, p2.c, radius, fadingTime);
+	pdRef.draw(rw);
+	/*
 	CircleShape c1{10};
 	c1.setFillColor(p1.c);
 	c1.setPosition(v1.x - 10, v1.y - 10);
@@ -53,4 +61,5 @@ void DoublePendulum::draw(RenderWindow& rw) const
 	c2.setFillColor(p2.c);
 	c2.setPosition(v2.x - 10, v2.y - 10);
 	rw.draw(c2);
+	*/
 }

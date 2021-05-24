@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "utils.hpp"
+#include "pendulum_drawing.hpp"
 
 using namespace sf;
 
@@ -12,8 +13,14 @@ using namespace sf;
 class DoublePendulum : public IPendulum
 {
 	public:
-		DoublePendulum(const Vector2f& origin, Pendulum& p1, Pendulum& p2):
-			IPendulum{origin}, p1{p1}, p2{p2} {};
+		DoublePendulum(
+				const Vector2f& origin, 
+				PendulumDrawing& drawer,
+				Pendulum& p1, 
+				Pendulum& p2):
+			IPendulum{origin}, 
+			pdRef{drawer},
+			p1{p1}, p2{p2} {};
 
 		~DoublePendulum() = default;
 
@@ -22,6 +29,7 @@ class DoublePendulum : public IPendulum
 
 
 	private:
+		PendulumDrawing& pdRef;
 		Pendulum p1;
 		Pendulum p2;
 };

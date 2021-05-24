@@ -30,9 +30,11 @@ class IPendulum
 
 		Vector2f getOrigin() const { return fixPoint; };
 		void setOrigin(Vector2f& newOr) { fixPoint = newOr; };
+
 	protected:
 		Vector2f fixPoint;
 };
+
 
 // Gravitational constant in m.s^(-2)
 constexpr float GRAVITY{9.81};
