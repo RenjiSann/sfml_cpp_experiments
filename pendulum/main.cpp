@@ -5,21 +5,6 @@
 #include "simple_pendulum.hpp"
 #include "double_pendulum.hpp"
 
-void printWin(sf::RenderWindow& rw)
-{
-	std::cout << "size: ("
-		<< rw.getSize().x
-		<< ","
-		<< rw.getSize().y
-		<< ")" << std::endl;
-
-	std::cout << "viewSize: ("
-		<< rw.getView().getSize().x
-		<< ","
-		<< rw.getView().getSize().y
-		<< ")" << std::endl;
-
-}
 
 int main(int argc, char** argv)
 {
@@ -53,7 +38,6 @@ int main(int argc, char** argv)
 	// Main loop
 	while(window.isOpen())
 	{
-		printWin(window);
 		sf::Event event;
 		sf::Clock clock;
 		while(true)
@@ -80,7 +64,6 @@ int main(int argc, char** argv)
 						origin.y /= 10.0;
 						sp[i]->setOrigin(origin);
 					}
-					printWin(window);
 				}
 			}
 
