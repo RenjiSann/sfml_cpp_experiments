@@ -76,6 +76,7 @@ int main(int argc, char** argv)
 
 			// Find the time elapsed since last frame
 			double dTime = clock.restart().asSeconds();
+			std::cout << dTime << std::endl;
 
 			// Update every pendulum
 			for(size_t i = 0; i < sp.size(); ++i)

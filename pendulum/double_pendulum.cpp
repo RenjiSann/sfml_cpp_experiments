@@ -40,7 +40,7 @@ void DoublePendulum::update(float deltaT)
 
 void DoublePendulum::draw(RenderWindow& rw) const
 {
-	float fadingTime = 3.0;
+	float fadingTime = 1.0;
 	float radius = 10.0;
 	Vector2f v1 = pixels_per_m * p1.pos + fixPoint;
 	Vector2f v2 = v1 + pixels_per_m * p2.pos;
@@ -48,7 +48,7 @@ void DoublePendulum::draw(RenderWindow& rw) const
 	drawLine(rw, fixPoint, v1, Color(100,100,100));
 	drawLine(rw, v1, v2, Color(100,100,100));
 
-	pdRef.addDot(v1, p1.c, radius, fadingTime);
+	pdRef.addDot(v1, p1.c, radius, 0);
 	pdRef.addDot(v2, p2.c, radius, fadingTime);
 	pdRef.draw(rw);
 	/*
