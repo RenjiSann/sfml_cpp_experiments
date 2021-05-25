@@ -19,7 +19,7 @@ int main(int argc, char** argv)
 
 	Pendulum a{2, M_PI , 1, 0, {0,0}, Color::Red};
 	Pendulum b{2, 2 * M_PI / 3, 1, 0, {0,0}, Color::Blue};
-	Pendulum c{2, 2 * M_PI / 3, 1, 0, {0,0}, Color::Green};
+	Pendulum c{2, 2 * M_PI / 3 * 1.001, 1, 0, {0,0}, Color::Green};
 	DoublePendulum dp{origin, pd, a, b};
 	DoublePendulum dp2{origin, pd, a, c};
 
