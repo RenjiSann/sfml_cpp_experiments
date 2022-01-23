@@ -41,8 +41,8 @@ int main(int argc, char** argv)
 	// Main loop
 	while(window.isOpen())
 	{
-		sf::Event event;
-		sf::Clock clock;
+		sf::Event event{};
+		sf::Clock clock{};
 
 		while(true)
 		{
@@ -63,10 +63,10 @@ int main(int argc, char** argv)
 					// Move the center of every pendulum to the new center
 					for(size_t i = 0; i < sp.size(); ++i)
 					{
-						Vector2f origin{s};
-						origin.x /= 2.0;
-						origin.y /= 10.0;
-						sp[i]->setOrigin(origin);
+						Vector2f ori{s};
+						ori.x /= 2.0;
+						ori.y /= 10.0;
+						sp[i]->setOrigin(ori);
 					}
 				}
 			}
@@ -76,7 +76,9 @@ int main(int argc, char** argv)
 
 			// Find the time elapsed since last frame
 			double dTime = clock.restart().asSeconds();
+#if defined(TIMER_DISPLAY)
 			std::cout << dTime << std::endl;
+#endif
 
 			// Update every pendulum
 			for(size_t i = 0; i < sp.size(); ++i)
