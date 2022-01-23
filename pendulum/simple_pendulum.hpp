@@ -9,32 +9,31 @@ using namespace sf;
 
 class SimplePendulum : public IPendulum
 {
-	public:
-		SimplePendulum(const Vector2f& origin, const Pendulum& p, bool friction = false):
-			/*
-			 * origin -> fix point coordinates in pixels
-			 * len -> in meters
-			 * angle -> in radians
-			 */
-			IPendulum{origin},
-			p{p},
-			friction{friction} {};
+public:
+    SimplePendulum(const Vector2f &origin, const Pendulum &p,
+                   bool friction = false)
+        : /*
+           * origin -> fix point coordinates in pixels
+           * len -> in meters
+           * angle -> in radians
+           */
+        IPendulum{ origin }
+        , p{ p }
+        , friction{ friction } {};
 
-		void update(float deltaTime) override;
-		void draw(RenderWindow& rw) const override;
+    void update(float deltaTime) override;
+    void draw(RenderWindow &rw) const override;
 
-		//Vector2f getOrigin() const { return _fixPoint; };
-		//Vector2f getPos() const { return fixPoint + ; };
+    // Vector2f getOrigin() const { return _fixPoint; };
+    // Vector2f getPos() const { return fixPoint + ; };
 
-	private:
-		
-		Pendulum p;
-		bool friction;
-		/*
-		Vector2f _bob; // Location of the bob IN METERS
-		float _angle;
-		float _angleVel;
-		float _len;
-		*/
+private:
+    Pendulum p;
+    bool friction;
+    /*
+    Vector2f _bob; // Location of the bob IN METERS
+    float _angle;
+    float _angleVel;
+    float _len;
+    */
 };
-

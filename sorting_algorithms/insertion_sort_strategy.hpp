@@ -4,14 +4,13 @@
 
 #include "sorting_strategy.hpp"
 
-
-class InsertionSortStrategy: public SortingStrategy
+class InsertionSortStrategy : public SortingStrategy
 {
 public:
-	InsertionSortStrategy(SortingView& v, Sortable& data):
-		SortingStrategy{v, data} {};
+    InsertionSortStrategy(SortingView &v, Sortable &data)
+        : SortingStrategy{ v, data } {};
 
-	~InsertionSortStrategy() = default;
+    ~InsertionSortStrategy() = default;
 
-	void run() const override;
+    void run() const override;
 };
